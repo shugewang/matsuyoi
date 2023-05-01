@@ -9,107 +9,13 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
-model User {
-  id        String   @id @default(cuid())
-  name      String?
-  email     String?  @unique
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
-  Book      Book[]
-  Film      Film[]
-  @@map(name: "users")
-}
-
 model Book {
   id               String     @id @default(cuid())
   title            String
   status           Status
-  description      String?
-  author           String?
-  publication_year Int?
-  genre            BookGenre?
-  rating           Int?
-  user             User?      @relation(fields: [userId], references: [id])
-  userId           String?
-}
-
-model Film {
-  id           String     @id @default(cuid())
-  title        String
-  status       Status
-  description  String?
-  director     String?
-  release_year Int?
-  genre        BookGenre?
-  language     String?
-  rating       Int?
-  user         User?      @relation(fields: [userId], references: [id])
-  userId       String?
 }
 
 enum Status {
-  SEEN
-  WANT
-}
-
-enum BookGenre {
-  ACTION_ADVENTURE
-  BIOGRAPHIES
-  CHILDRENS
-  CLASSICS
-  COMICS
-  COOKBOOK
-  FANTASY
-  HISTORICAL
-  HORROR
-  LITERARY
-  MANGA
-  MYSTERY
-  NON_FICTION
-  ROMANCE
-  SCIFI
-  SHORT_STORIES
-  THRILLER
-  YA
-}
-
-enum TVFilmGenre {
-  ACTION_ADVENTURE
-  ANIMATED
-  ANIME
-  COMEDY
-  CRIME
-  DRAMA
-  FANTASY
-  HORROR
-  MUSICAL
-  ROMANCE
-  SCIFI
-  THRILLER
-  WESTERN
-}
-
-enum GameGenre {
-  ADVENTURE
-  FANTASY
-  FPS
-  HORROR
-  PLATFORMER
-  PUZZLE
-  RPG
-  SCIFI
-  SIMULATION
-  SPORTS
-  SURVIVAL
-  VR
-}
-
-enum MusicalGenre {
-  CLASSICAL
-  CONCEPT
-  FILM
-  JUKEBOX
-  ROCK_POP
-  SUNG_THROUGH
+  HAS_SEEN
+  TO_WATCH
 }

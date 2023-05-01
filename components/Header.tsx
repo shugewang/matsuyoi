@@ -38,7 +38,7 @@ const Header: React.FC = () => {
 
   let right = (
     <div className="right">
-      <Link href="/create">
+      <Link href="/add-book">
         <button>
           <a>Add book</a>
         </button>
