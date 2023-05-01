@@ -7,13 +7,11 @@ export const getStaticProps: GetStaticProps = async () => {
   const feed = [
     {
       id: "1",
-      title: "Prisma is the perfect ORM for Next.js",
-      content: "[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!",
-      published: false,
-      author: {
-        name: "Nikolas Burk",
-        email: "burk@prisma.io",
-      },
+      title: "The Satsuma Complex",
+      description: "My name is Gary. I'm a thirty-year-old legal assistant with a firm of solicitors in London. To describe me as anonymous would be unfair but to notice me other than in passing would be a rarity. I did make a good connection with a girl, but that blew up in my face and smacked my arse with a fish slice.",
+      author: "Bob Mortimer",
+      publication_year: 2022,
+      genre: "Comedy",
     },
   ]
   return { 
