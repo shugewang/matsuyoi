@@ -9,13 +9,79 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model Book {
   id               String     @id @default(cuid())
   title            String
   status           Status
+  category         BookCategory?
+}
+
+model Film {
+  id               String     @id @default(cuid())
+  title            String
+  status           Status
+  category         VideoCategory?
+}
+
+model Game {
+  id               String     @id @default(cuid())
+  title            String
+  status           Status
+  category         GameCategory?
 }
 
 enum Status {
   HAS_SEEN
   TO_WATCH
+}
+
+enum BookCategory {
+  ACTION_ADVENTURE
+  BIOGRAPHIES
+  CHILDRENS
+  CLASSICS
+  COMIC_BOOK
+  COOKBOOK
+  FANTASY
+  HISTORICAL
+  HORROR
+  LITERARY
+  MYSTERY
+  NON_FICTION
+  ROMANCE
+  SCIFI
+  SHORT_STORIES
+  THRILLER
+  YA
+}
+
+enum VideoCategory {
+  ACTION_ADVENTURE
+  ANIMATED
+  COMEDY
+  CRIME
+  DRAMA
+  FANTASY
+  HORROR
+  MUSICAL
+  ROMANCE
+  SCIFI
+  THRILLER
+  WESTERN
+}
+
+enum GameCategory {
+  ADVENTURE
+  FANTASY
+  FPS
+  HORROR
+  PLATFORMER
+  PUZZLE
+  RPG
+  SCIFI
+  SIMULATION
+  SPORTS
+  SURVIVAL
+  VR
 }
