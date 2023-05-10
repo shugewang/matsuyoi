@@ -10,61 +10,48 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String   @id @default(cuid())
-  name      String?
-  email     String?  @unique
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
-  Book      Book[]
-  Film      Film[]
-  @@map(name: "users")
-}
-
 model Book {
   id               String     @id @default(cuid())
   title            String
   status           Status
-  description      String?
-  author           String?
-  publication_year Int?
-  genre            BookGenre?
-  rating           Int?
-  user             User?      @relation(fields: [userId], references: [id])
-  userId           String?
+  category         BookCategory?
+  createdAt       DateTime  @default(now()) @map(name: "created_at")
+
 }
 
 model Film {
-  id           String     @id @default(cuid())
-  title        String
-  status       Status
-  description  String?
-  director     String?
-  release_year Int?
-  genre        BookGenre?
-  language     String?
-  rating       Int?
-  user         User?      @relation(fields: [userId], references: [id])
-  userId       String?
+  id               String     @id @default(cuid())
+  title            String
+  status           Status
+  category         VideoCategory?
+  createdAt       DateTime  @default(now()) @map(name: "created_at")
+
+}
+
+model Game {
+  id               String     @id @default(cuid())
+  title            String
+  status           Status
+  category         GameCategory?
+  createdAt       DateTime  @default(now()) @map(name: "created_at")
 }
 
 enum Status {
-  SEEN
-  WANT
+  HAS_SEEN
+  TO_WATCH
 }
 
-enum BookGenre {
+enum BookCategory {
   ACTION_ADVENTURE
   BIOGRAPHIES
   CHILDRENS
   CLASSICS
-  COMICS
+  COMIC_BOOK
   COOKBOOK
   FANTASY
   HISTORICAL
   HORROR
   LITERARY
-  MANGA
   MYSTERY
   NON_FICTION
   ROMANCE
@@ -74,10 +61,9 @@ enum BookGenre {
   YA
 }
 
-enum TVFilmGenre {
+enum VideoCategory {
   ACTION_ADVENTURE
   ANIMATED
-  ANIME
   COMEDY
   CRIME
   DRAMA
@@ -90,7 +76,7 @@ enum TVFilmGenre {
   WESTERN
 }
 
-enum GameGenre {
+enum GameCategory {
   ADVENTURE
   FANTASY
   FPS
@@ -103,13 +89,4 @@ enum GameGenre {
   SPORTS
   SURVIVAL
   VR
-}
-
-enum MusicalGenre {
-  CLASSICAL
-  CONCEPT
-  FILM
-  JUKEBOX
-  ROCK_POP
-  SUNG_THROUGH
 }

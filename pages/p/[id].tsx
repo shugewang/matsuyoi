@@ -1,37 +1,34 @@
-import React from "react"
-import { GetServerSideProps } from "next"
-import ReactMarkdown from "react-markdown"
-import Layout from "../../components/Layout"
-import { PostProps } from "../../components/Post"
+import React from "react";
+import { GetServerSideProps } from "next";
+import Layout from "../../components/Layout";
+import { BookProps } from "../../components/Book";
+import prisma from "../../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = {
-    id: "1",
-    title: "Prisma is the perfect ORM for Next.js",
-    content: "[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!",
-    published: false,
-    author: {
-      name: "Nikolas Burk",
-      email: "burk@prisma.io",
+  const book = await prisma.book.findUnique({
+    where: {
+      id: String(params?.id),
     },
-  }
+  });
   return {
-    props: post,
-  }
-}
+    props: JSON.parse(JSON.stringify(book)),
+  };
+};
 
-const Post: React.FC<PostProps> = (props) => {
-  let title = props.title
-  if (!props.published) {
-    title = `${title} (Draft)`
-  }
+const Post: React.FC<BookProps> = (props) => {
+  let title = props.title;
+  // if (!props.published) {
+  //   title = `${title} (Draft)`
+  // }
+  let date = props.createdAt;
 
   return (
     <Layout>
       <div>
         <h2>{title}</h2>
-        <p>By {props?.author?.name || "Unknown author"}</p>
-        <ReactMarkdown children={props.content} />
+        <p>Added on {date}</p>
+        {/* <p>By {props?.author?.name || "Unknown author"}</p> */}
+        {/* <ReactMarkdown children={props.content} /> */}
       </div>
       <style jsx>{`
         .page {
@@ -55,7 +52,7 @@ const Post: React.FC<PostProps> = (props) => {
         }
       `}</style>
     </Layout>
-  )
-}
+  );
+};
 
-export default Post
+export default Post;
