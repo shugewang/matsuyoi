@@ -1,9 +1,8 @@
-import React from "react"
-import { GetServerSideProps } from "next"
-import ReactMarkdown from "react-markdown"
-import Layout from "../../components/Layout"
-import { PostProps } from "../../components/Post"
-import prisma from "../../lib/prisma"
+import React from "react";
+import { GetServerSideProps } from "next";
+import Layout from "../../components/Layout";
+import { BookProps } from "../../components/Book";
+import prisma from "../../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const book = await prisma.book.findUnique({
@@ -12,20 +11,22 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     },
   });
   return {
-    props: book,
-  }
-}
+    props: JSON.parse(JSON.stringify(book)),
+  };
+};
 
-const Post: React.FC<PostProps> = (props) => {
-  let title = props.title
+const Post: React.FC<BookProps> = (props) => {
+  let title = props.title;
   // if (!props.published) {
   //   title = `${title} (Draft)`
   // }
+  let date = props.createdAt;
 
   return (
     <Layout>
       <div>
         <h2>{title}</h2>
+        <p>Added on {date}</p>
         {/* <p>By {props?.author?.name || "Unknown author"}</p> */}
         {/* <ReactMarkdown children={props.content} /> */}
       </div>
@@ -51,7 +52,7 @@ const Post: React.FC<PostProps> = (props) => {
         }
       `}</style>
     </Layout>
-  )
-}
+  );
+};
 
-export default Post
+export default Post;

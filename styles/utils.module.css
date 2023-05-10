@@ -1,0 +1,9 @@
+.borderCircle {
+    border-radius: 9999px;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
